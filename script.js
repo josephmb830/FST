@@ -1,11 +1,7 @@
 document.getElementById('generatePdf').addEventListener('click', function () {
     // Crear una instancia de jsPDF
     var pdf = new jsPDF();
-
-     // Agregar logo en el encabezado (marca de agua)
-     var logoUrl = "./logom.png"; // Reemplaza 'url_de_tu_logo.png' con la URL de tu propio logo
-     pdf.addImage(logoUrl, 'PNG', 10, 10, 40, 40); // Ajusta las coordenadas y el tamaño según tus necesidades
- 
+    
      // Agregar título centrado
 
     // Agregar título centrado
