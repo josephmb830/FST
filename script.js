@@ -5,8 +5,8 @@ document.getElementById('generatePdf').addEventListener('click', function () {
     const image = new Image();
     
    // Agregar logo a la izquierda del título
-   image.src = 'https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg?crop=0.88847xw:1xh;center,top&resize=1200:*'; // Reemplaza con la URL de tu imagen de gato izquierdo
-   pdf.addImage(image, 'PNG', 10, 10, 40, 40); // Ajusta las coordenadas y el tamaño según tus necesidades
+   image.src = './images/logom.png'; // Reemplaza con la URL de tu imagen de gato izquierdo
+   pdf.addImage(image, 'PNG', 10, 10, 40, 30); // Ajusta las coordenadas y el tamaño según tus necesidades
 
     // Agregar título centrado
     var title = "MUNICIPALIDAD DISTRITAL MAGDALENA";
@@ -14,6 +14,60 @@ document.getElementById('generatePdf').addEventListener('click', function () {
     var titleWidth = pdf.getStringUnitWidth(title) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
     var x = (pdf.internal.pageSize.width - titleWidth) / 2;
     pdf.text(title, x, 20);
+
+     const fichaData = {
+        numero: '123456',
+        producto: 'Pizza',
+        cantidad: 5,
+        precio: 20,
+        fecha: '2023',  
+        cliente: 'Angelo',
+        total: 100.00,
+     }
+
+     // Crear tabla
+     const columns = ['Numero', 'Producto', 'Cantidad', 'Precio', 'fecha', 'Total'];
+     const datax = [
+        [`${fichaData.numero}`, `${fichaData.producto}`, `${fichaData.cantidad}`, `${fichaData.precio}`, `${fichaData.fecha}`, `${fichaData.cliente}`, `${fichaData.total}`]
+     ];
+
+     pdf.autoTable({
+        startY: 50,
+        head: [columns],
+        body: datax
+     })
+
+
+      // Definir datos para la tabla (ejemplo)
+    var data = [
+        ['Nombre', 'Edad', 'Ciudad'],
+        ['Juan', 25, 'Ciudad A'],
+        ['María', 30, 'Ciudad B'],
+        ['Pedro', 22, 'Ciudad C']
+    ];
+
+    // Configurar opciones de la tabla
+    var options = {
+        startY: 80 // Ajusta la posición vertical donde comenzará la tabla
+    };
+
+    // Agregar la tabla al PDF
+    pdf.autoTable({
+        head: [data[0]], // Cabecera de la tabla
+        body: data.slice(1), // Cuerpo de la tabla (sin la cabecera)
+        startY: options.startY,
+        theme: 'striped', // Puedes cambiar el tema (opcional)
+        styles: {
+            fontSize: 12,
+            fontStyle: 'normal'
+        },
+        columnStyles: {
+            0: { cellWidth: 40 }, // Ajusta el ancho de la primera columna
+            1: { cellWidth: 30 }  // Ajusta el ancho de la segunda columna
+            // Puedes ajustar el ancho de otras columnas según tus necesidades
+        }
+    });
+
 
     // Guardar el PDF
     var pdfContent = pdf.output('datauristring');
