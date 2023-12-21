@@ -3,6 +3,8 @@ document.getElementById('generatePdf').addEventListener('click', function () {
     const { jsPDF } = jspdf;
     const pdf = new jsPDF();
     const image = new Image();
+
+    var p_y = 0;
     
    // Agregar logo a la izquierda del título
    image.src = './images/logom.png'; // Reemplaza con la URL de tu imagen de gato izquierdo
@@ -17,7 +19,8 @@ document.getElementById('generatePdf').addEventListener('click', function () {
     pdf.setFont("helvetica", "bold");
     var titleWidth = pdf.getStringUnitWidth(title) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
     var x = (pdf.internal.pageSize.width - titleWidth) / 2;
-    pdf.text(title, x, 20);
+    p_y = 20 + p_y;
+    pdf.text(title, x, p_y);
 
      // Cambiar a fuente normal antes de imprimir el subtítulo
      pdf.setFont("helvetica", "normal");
