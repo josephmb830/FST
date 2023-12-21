@@ -6,7 +6,11 @@ document.getElementById('generatePdf').addEventListener('click', function () {
     
    // Agregar logo a la izquierda del título
    image.src = './images/logom.png'; // Reemplaza con la URL de tu imagen de gato izquierdo
-   pdf.addImage(image, 'PNG', 10, 10, 40, 30); // Ajusta las coordenadas y el tamaño según tus necesidades
+   pdf.addImage(image, 'PNG', 10, 10, 40, 30); 
+
+    // Agregar logo en el encabezado (marca de agua)
+    var logoUrlRight = './images/logom.png'; // Reemplaza con la URL de tu imagen de gato derecho
+    pdf.addImage(logoUrlRight, 'PNG', pdf.internal.pageSize.width - 50, 10, 40, 30);
 
     // Agregar título centrado
     var title = "MUNICIPALIDAD DISTRITAL MAGDALENA";
@@ -14,6 +18,29 @@ document.getElementById('generatePdf').addEventListener('click', function () {
     var titleWidth = pdf.getStringUnitWidth(title) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
     var x = (pdf.internal.pageSize.width - titleWidth) / 2;
     pdf.text(title, x, 20);
+
+     // Cambiar a fuente normal antes de imprimir el subtítulo
+     pdf.setFont("helvetica", "normal");
+
+    // Agregar subtítulo
+    var subtitle = "OFICINA DE TECNOLOGIA DE LA INFORMACION";
+    pdf.setFontSize(pdf.internal.getFontSize() * 0.70); // Tamaño de fuente del subtítulo al 70% del tamaño del título
+    var subtitleWidth = pdf.getStringUnitWidth(subtitle) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+    var subtitleX = (pdf.internal.pageSize.width - subtitleWidth) / 2;
+    pdf.text(subtitle, subtitleX, 25); 
+
+    // Cambiar a bold
+    pdf.setFont("helvetica", "bold");
+
+    // Agrega Título Ficha
+    var tituloFicha = "FICHA DE SERVICIO DE SOPORTE TECNICO";
+    var tituloFichaWidth = pdf.getStringUnitWidth(tituloFicha) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+    var tituloFichaX = (pdf.internal.pageSize.width - tituloFichaWidth) / 2;
+    pdf.text(tituloFicha, tituloFichaX, 33); 
+
+
+
+
 
      const fichaData = {
         numero: '123456',
